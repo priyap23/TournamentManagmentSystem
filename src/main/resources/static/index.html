@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <title>Tournament Management System</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/all.css" rel="stylesheet">
+    <script src="js/angular.js"></script>
+    <script src="js/exercise.js"></script>
+</head>
+
+<body ng-app="exercise">
+
+<!-- Just an image -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand text-success" href="#">
+    <i class="fas fa-lg fa-chess"></i> TorMantS - Tournaments Management System
+  </a>
+</nav>
+<div class="container-fluid border">
+	<div class="row mt-4 bg-light">
+		<div class="col-md-6 border">
+			<h5 class="text-info mt-3"><i class="fas fa-cog"></i> Actions</h5>
+		</div>
+		<div class="col-md-6 border">
+			<h4 class="text-info mt-3"><i class="fas fa-bars"></i> Details</h4>
+		</div>
+	</div>
+	
+	<div class="row">
+		
+		<div class="col-md-6">
+			<br>
+			<form class="form-inline">
+			<div>
+			    <h5>Add Tournament</h5>
+			    <div class="form-group">
+			    	<input ng-model="tournamentName" class="form-control" placeholder="Tournament Name" required/>
+			        <input ng-model="rewardAmount" class="form-control" placeholder="Reward amount" number required /> <div class="mr-4"></div>
+			        <button ng-click="addTournament(tournamentName, rewardAmount)" class="btn btn-default"><i class="fas fa-plus"></i> Add Tournament</button>
+			    </div>
+			</div>
+			</form> <!-- Form end -->
+			<hr/>
+			<form class="form-inline">
+			<div>
+			    <h5>Edit Tournament</h5>
+			    <div class="form-group">
+			        <input ng-model="editTournamentId" class="form-control" placeholder="Tournament Id" number required/>
+			        <input ng-model="editRewardAmount" class="form-control" placeholder="Reward amount" number required/> <div class="mr-4"></div>
+			        <button ng-click="updateTournament(editTournamentId, editRewardAmount)" class="btn btn-default"><i class="fas fa-edit"></i> Update Tournament</button>
+			    </div>
+			</div>
+			</form> <!-- form end -->
+			<hr/>
+			<form class="form-inline">
+			<div>
+			    <h5>Add Player Into Tournament</h5>
+			    <div class="form-group">
+			        <input ng-model="playerTournamentId" class="form-control" placeholder="Tournament Id" number required/>
+			        <input ng-model="playerName" class="form-control" placeholder="Player Name" required/> <div class="mr-4"></div>
+			        <button ng-click="addPlayerIntoTournament(playerTournamentId, playerName)" class="btn btn-default"><i class="fas fa-user-plus"></i> Add Player</button>
+			    </div>
+			</div>
+			</form> <!-- form end -->
+			<br/>
+		</div> <!-- col-md-6 end -->
+		
+		<div class="col-md-6 border">
+			<div>
+				<table class="table table-bordered mt-2">
+				
+			    <tr ng-repeat="tournament in tournaments">
+			        <td>
+				        <div class="font-weight-bold">Tournament | 
+				        <button ng-click="editTournament(tournament)" class="btn btn-default btn-sm btn-primary"><i class="fa fa-edit"></i></button> 
+				        <button ng-click="removeTournament(tournament.tournament_id)" class="btn btn-default btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+				        </div> 
+				        <span>ID: {{tournament.tournament_id}} </span> <br/>
+				        <span>Name: {{tournament.tournament_name}} </span> <br/>
+				        <span>Reward Amount: {{tournament.reward_amount}} </span> <br/>
+				      </td>
+				      <td>
+						<div ng-if="tournament.players">
+						<div class="font-italic">Players</div>
+				        <table>
+				        <tr>
+				        <th>Id</th>
+				        <th>Name</th>
+				        <th>Actions</th>
+				        </tr>
+				        <tr ng-repeat="player in tournament.players">
+				                <td>{{player.player_id}}</td>
+				                <td>{{player.player_name}}</td>
+				                <td><button ng-click="removePlayerFromTournament(tournament.tournament_id, player.player_id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+				        </tr>
+				        </table>
+				        </div>
+			        </td>
+			    </tr>
+			    </table>
+			</div>
+		</div> <!-- col-md-6 end -->
+		
+		
+	</div> <!-- Main row end -->
+</div> <!-- Container end -->
+
+</body>
+</html>
